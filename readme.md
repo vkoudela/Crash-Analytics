@@ -31,14 +31,14 @@ Requirements for webserver
 Requirements for your Android app
 ----
    - import [DRASCIC, daj link, cekam] project
-   - setup end URL for reporting; the URL is http://your-virtual-host/crash/add or http://your-virtual-host/submit.php - both will work
+   - setup end URL for reporting; the URL is `http://your-virtual-host/crash/add` or `http://your-virtual-host/submit.php` - both will work
 
 
 Installation
 ----
   - deploy this project on your server
   - point your virtual host to **public** folder
-  - make sure you have **cache** and **log** folders in your storage folder; if not, create them
+  - make sure you have **cache** and **log** folders in your **storage** folder; if you don't have storage folder, then go to your project root and run this command: `mkdir -p storage/{cache,log}`
   - make sure your webserver has rights to write in **storage** folder and all of its subfolders
   - import SQL file from **sql** folder to your MySQL server
   - in **application/configs**, configure **application.php** and **database.php**; if you want to enable e-mail alerts and reports, then you also need to configure **mail.php**.
