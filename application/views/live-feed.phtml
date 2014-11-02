@@ -1,0 +1,146 @@
+<div class="row">
+	<div class="col-md-12">
+		<?= \Bootstrap::h(1, 'Live feed')->secondaryText('You\'ll see incoming reports here in real time') ?>
+		
+		<?php
+			$form = \BootstrapUI::form(Url::href('live-feed', 'go-filter'))
+				->horizontal()
+				->add(\BootstrapUI::select2('package', 'package(s)')->value($this->values['package'])->tags()->tagsTokenSeparator(array(',', ' '))->placeholder('e.g. your.package.name')->maxSelections(5))
+				->add(\BootstrapUI::select2('package_version', 'package version(s)')->value($this->values['package_version'])->tags()->tagsTokenSeparator(array(',', ' '))->placeholder('e.g. 1.2.31')->maxSelections(5))
+				->add(\BootstrapUI::select2('brand', 'brand(s)')->value($this->values['brand'])->tags()->tagsTokenSeparator(array(',', ' '))->placeholder('e.g. samsung')->maxSelections(5))
+				->add(\BootstrapUI::select2('phone_model', 'phone model(s)')->value($this->values['phone_model'])->tags()->tagsTokenSeparator(array(',', ' '))->placeholder('e.g. GT-I9300')->maxSelections(5))
+				->add(\BootstrapUI::select2('product', 'product(s)')->value($this->values['product'])->tags()->tagsTokenSeparator(array(',', ' '))->placeholder('e.g. GT-I9300')->maxSelections(5))
+				->add(\BootstrapUI::select2('os_version', 'OS version(s)')->value($this->values['os_version'])->tags()->tagsTokenSeparator(array(',', ' '))->placeholder('e.g. 2.3.5')->maxSelections(5))
+				->add(\BootstrapUI::select2('country', 'country(s)', \Country::getSelectOptions(), explode(',', $this->values['country']))->multiple()->maxSelections(5))
+				->addButton(\Bootstrap::button('Apply filter')->type('submit')->color('green'));
+			
+			
+			echo \Bootstrap::panel('Filter Live Feed', $form)->collapsible(false)->color('green');
+		?>
+		
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					List of latest reports on <time id="time"></time>
+					<button class="btn btn-danger" id="btnStartStop">Stop refreshing</button>
+					<?php
+					if (Url::action() == 'filter') {
+						echo \Bootstrap::anchor('Clear filters', Url::href('live-feed'))->asButton()->color('red');
+					}
+					?>
+				</h3>
+			</div>
+			
+			<table class="table" id="results">
+				<thead>
+					<tr>
+						<th style="width: 70px;"><small>time</small></th>
+						<th>package</th>
+						<th>device</th>
+						<th>OS</th>
+						<th style="width: 30px;"></th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			
+			<div class="panel-footer" id="status">&nbsp;</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Stack Trace <span class="label label-info" id="stackTraceId"></span></h4>
+      </div>
+      <div class="modal-body" id="stackTraceText"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+
+var goLoad = true;
+
+var reload = function() {
+	if (!goLoad) {
+		return;
+	}
+	
+	$('#status').html(BootstrapUI.loaderImg);
+
+	$.ajax({
+		url: '<?= Url::href('live-feed') ?>',
+		method: 'POST',
+		data: <?= json_encode($this->values) ?>,
+		success: function(json) {
+			if (!goLoad) {
+				return;
+			}
+			
+			var data = json.data, $tbody = $('#results tbody');
+			$tbody.children().remove();
+			
+			for (var i = 0; i < data.length; i++) {
+				$tbody.append([
+					'<tr>',
+						'<td>',
+							'<span class="label label-default">' + data[i].id + '</span><br/>',
+							data[i].created_at,
+							(data[i].country !== null ? ('<img src="/img/flag/' + data[i].country + '.png" />') : ''),
+						'</td>',
+						'<td>' + data[i].package + (data[i].stack_trace !== null ? ('<pre class="text-danger" style="font-size: 10px;">' + data[i].stack_trace + '</pre>') : '') + '</td>',
+						'<td>' + data[i].device + (data[i].product != null ? ('<br/>' + data[i].product) : '') + '</td>',
+						'<td>' + data[i].os + '</td>',
+						'<td><button class="btn btn-link btn-xs" onclick="showStackTrace(' + data[i].id + ');"><span class="glyphicon glyphicon-eye-open"></span></button></td>',
+					'</tr>'
+				].join(''));
+			}
+
+			$('#status').html('&nbsp;');
+			$('#time').html(json.time);
+			setTimeout(reload, 900);
+		}
+	});
+};
+
+var showStackTrace = function(id) {
+	$('#stackTraceId').html(id);
+	$('#stackTraceText').html(BootstrapUI.loaderImg);
+	$('#myModal').modal({show: true});
+
+	$.ajax({
+		url: '<?= Url::href('live-feed', 'get-stack-trace') ?>',
+		method: 'POST',
+		data: {id: id},
+		success: function(json) {
+			$('#stackTraceText').html('<pre class="text-danger" style="font-size: 11px;">' + json.stack_trace + '</pre>');
+		}
+	});
+};
+
+$(document).ready(function() {
+	reload();
+
+	$('#btnStartStop').click(function() {
+		if (goLoad) {
+			// stop refreshing
+			goLoad = false;
+			$(this).removeClass('btn-danger').addClass('btn-success').html('Start refreshing');
+			$('#status').html('&nbsp;');
+		} else {
+			// stop refreshing
+			goLoad = true;
+			$(this).removeClass('btn-success').addClass('btn-danger').html('Stop refreshing');
+			reload();
+		}
+	});
+});
+</script>

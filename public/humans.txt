@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Vlatko Koudela -- Main Developer -- @VlatkoKoudela
+
+# THANKS
+
+    Twitter Bootstrap, Highcharts
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr
+    PHP, MySQL

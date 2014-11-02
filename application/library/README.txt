@@ -1,0 +1,1 @@
+Define only classes that are non-database related.

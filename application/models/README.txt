@@ -1,0 +1,1 @@
+Define only models in this folder that are working with database.
