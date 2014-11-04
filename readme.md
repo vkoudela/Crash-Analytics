@@ -52,7 +52,7 @@ After installation, go to your host with browser and login with admin@admin.com 
 
 
 Tech
------------
+----
 
 Crash Analytics uses a number of open source projects to work properly:
 
@@ -60,6 +60,23 @@ Crash Analytics uses a number of open source projects to work properly:
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer) - great lib for sending e-mails from PHP
 * [Twitter Bootstrap](http://getbootstrap.com/) - great UI boilerplate for modern web apps
 * [HighCharts](http://www.highcharts.com/) - beautiful charts
+
+
+Screen shots
+----
+* [Login](http://vlatko.koudela.org/work/crash-analyser/01-login.png)
+* [Dashboard](http://vlatko.koudela.org/work/crash-analyser/02-dashboard.png)
+* [Dashboard while data calculation is in progress](http://vlatko.koudela.org/work/crash-analyser/03-dashboard-while-calculating.png)
+* [Live feed](http://vlatko.koudela.org/work/crash-analyser/04-live-feed.png)
+* [Stack trace from live feed](http://vlatko.koudela.org/work/crash-analyser/05-stack-trace-from-live-feed.png)
+* [Stack trace list](http://vlatko.koudela.org/work/crash-analyser/06-stack-trace-list.png)
+* [Crash report details](http://vlatko.koudela.org/work/crash-analyser/07-crash-report-details.png)
+* [List of packages](http://vlatko.koudela.org/work/crash-analyser/08-list-of-packages.png)
+* [List of package versions](http://vlatko.koudela.org/work/crash-analyser/09-list-of-package-versions.png)
+* [Search results](http://vlatko.koudela.org/work/crash-analyser/10-search-results.png)
+* [Search results - preview stack trace](http://vlatko.koudela.org/work/crash-analyser/11-search-result-quick-stack-trace.png)
+* [Email triggers](http://vlatko.koudela.org/work/crash-analyser/12-email-triggers.png)
+* [User accounts](http://vlatko.koudela.org/work/crash-analyser/13-users.png)
 
 
 License
