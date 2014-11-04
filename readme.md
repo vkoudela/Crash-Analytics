@@ -30,7 +30,7 @@ Requirements for webserver
 
 Requirements for your Android app
 ----
-   - import [DRASCIC, daj link, cekam] project
+   - import [Crash Analytics Wrapper](https://github.com/zdrascic/library-crash-analytics-wrapper)
    - setup end URL for reporting; the URL is `http://your-virtual-host/crash/add` or `http://your-virtual-host/submit.php` - both will work
 
 
