@@ -30,7 +30,7 @@ Requirements for webserver
 
 Requirements for your Android app
 ----
-   - import [Crash Analytics Wrapper](https://github.com/zdrascic/library-crash-analytics-wrapper)
+   - get [Crash Analytics Wrapper](https://github.com/zdrascic/library-crash-analytics-wrapper) (demo application can be found here: https://github.com/zdrascic/CrashAnalytics_TestApplication)
    - setup end URL for reporting; the URL is `http://your-virtual-host/crash/add` or `http://your-virtual-host/submit.php` - both will work
 
 
