@@ -652,7 +652,7 @@ class SystemController extends AbstractSessionController {
 			->add(Bootstrap::textfield('pass', null, 'password')->type('password'))
 			->add(Bootstrap::textfield('pass2', null, 'password again')->type('password'))
 			->add(Bootstrap::radio('account_type', array(
-				'admin' => 'admin',
+				'admin' => 'administrator',
 				'normal' => 'normal user'		
 			), 'account type', $values['account_type']))
 			->add(BootstrapUI::select2('timezone', 'timezone', Timezone::$timezones, $values['timezone']))

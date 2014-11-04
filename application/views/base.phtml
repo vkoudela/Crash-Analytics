@@ -58,7 +58,7 @@
 					</ul>
 				</li>
 				<?php if ($user['account_type'] == 'admin') : ?>
-				<li class="dropdown<?= (Url::controller() == 'system') ? ' active' : '' ?>">
+					<li class="dropdown<?= (Url::controller() == 'system') ? ' active' : '' ?>">
 					<a href="<?= Url::href('calculation') ?>" class="dropdown-toggle" data-toggle="dropdown">System <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="<?= Url::href('system', 'calculation') ?>">Calculation</a></li>
@@ -89,7 +89,7 @@
 	    <?php endif; ?>
 	    
     	<hr/>
-	    <footer class="text-center" style="line-height: 50px;">
+	    <footer class="text-center" style="padding: 25px 5px;">
 	    	<a href="https://github.com/vkoudela/Crash-Analytics" target="_blank">Crash Analytics</a>
 	    	is developed by <a href="http://vlatko.koudela.org" target="_blank">Vlatko Koudela</a>.
 	    </footer>

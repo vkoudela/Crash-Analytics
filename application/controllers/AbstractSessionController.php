@@ -11,12 +11,10 @@ abstract class AbstractSessionController {
 	 */
 	protected $user = null;
 	
-	public function __construct() {
+	public function before() {
 		if (!Session::has('user')) {
-			View::create('login')
-				->with('loginForm', IndexController::getLoginForm())
-				->flush();
-			exit(0);
+			return View::create('login')
+				->with('loginForm', IndexController::getLoginForm());
 		} else {
 			$this->user = Session::get('user');
 		}

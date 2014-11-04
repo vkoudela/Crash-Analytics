@@ -7,3 +7,4 @@ application/configs/test
 storage/tmp
 storage/cache
 storage/log
+application/configs/samples
